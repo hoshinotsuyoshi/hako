@@ -119,9 +119,6 @@ module Hako
       # @return [nil]
       def oneshot(containers, commands, env)
         definitions = create_definitions(containers)
-        definitions.each do |definition|
-          definition.delete(:essential)
-        end
 
         if @dry_run
           definitions.each do |d|
@@ -451,7 +448,7 @@ module Hako
           memory_reservation: container.memory_reservation,
           links: container.links,
           port_mappings: container.port_mappings,
-          essential: true,
+          essential: container.essential,
           environment: environment,
           docker_labels: container.docker_labels,
           mount_points: container.mount_points,
